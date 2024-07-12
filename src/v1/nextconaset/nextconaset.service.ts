@@ -85,4 +85,12 @@ export class NextconasetService {
 
   }
 
+  prueba_get(){
+
+    this.logger.log("Llamando a la api");
+    
+    return {msg:"Esta llamada ha salido exitosamente"}
+
+  }
+
 }

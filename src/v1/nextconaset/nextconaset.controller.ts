@@ -84,7 +84,8 @@ export class NextconasetController {
 
   @Get('prueba-get')
   pueba(@Response() res) {
-    return res.status(200).json("Estamos saliendo efectivamente");
+    const data = this.nextconasetService.prueba_get();
+    return res.status(200).json(data);
   }
 
 }
