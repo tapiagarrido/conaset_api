@@ -1,11 +1,14 @@
-import { Controller, Post, Body, Request, Response } from '@nestjs/common';
+import { Controller, Post, Body, Request, Response, UseGuards } from '@nestjs/common';
 import { NextconasetService } from './nextconaset.service';
 import { AnulacionExamenDto, ConsultaEstadoDto, CreatePostulanteDto, FinalizacionExamenDto } from './dto';
 import { AxiosError } from 'axios';
 import { ResponseAnulacionExamenError, ResponseConsultaEstadoError, ResponseFinalizacionExamenError } from './interface';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SeguridadGuard } from '../seguridad/seguridad.guard';
+
 
 @ApiTags('NextConaset')
+@UseGuards(SeguridadGuard)
 @Controller('v1/nextconaset')
 export class NextconasetController {
   constructor(private readonly nextconasetService: NextconasetService) { }

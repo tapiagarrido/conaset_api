@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class FinalizacionExamenDto {
 
@@ -29,7 +29,7 @@ export class FinalizacionExamenDto {
     cancellation: boolean;
 
     @ApiProperty({ description: "Codigo identificador de causa para cancelación", default: null })
-    @IsNotEmpty()
+    @IsOptional()
     @IsNumber()
     id_cancellation_reason: number;
 
