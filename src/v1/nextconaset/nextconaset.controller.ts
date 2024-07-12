@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Request, Response, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Request, Response, UseGuards, Get } from '@nestjs/common';
 import { NextconasetService } from './nextconaset.service';
 import { AnulacionExamenDto, ConsultaEstadoDto, CreatePostulanteDto, FinalizacionExamenDto } from './dto';
 import { AxiosError } from 'axios';
@@ -80,6 +80,11 @@ export class NextconasetController {
         }
       })
 
+  }
+
+  @Get('prueba-get')
+  pueba(@Response() res) {
+    return res.status(200).json("Estamos saliendo efectivamente");
   }
 
 }
