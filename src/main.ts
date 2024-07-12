@@ -7,18 +7,18 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
-  app.useGlobalPipes(new ValidationPipe());
-
+  
   const configDoc = new DocumentBuilder()
-    .setTitle('Next-Conaset API')
-    .setDescription("Documentacion Api de intercomunicacion entre SGM2 y la nueva version de la api de Conaset")
-    .setVersion('1.0')
-    .addTag('Documentación Endpoints y Variables')
-    .build();
-
+  .setTitle('Next-Conaset API')
+  .setDescription("Documentacion Api de intercomunicacion entre SGM2 y la nueva version de la api de Conaset")
+  .setVersion('1.0')
+  .addTag('Documentación Endpoints y Variables')
+  .build();
+  
   const document = SwaggerModule.createDocument(app, configDoc);
   SwaggerModule.setup('api', app, document);
-
+  
+  //app.useGlobalPipes(new ValidationPipe());
   await app.listen(envs.PORT);
 }
 bootstrap();

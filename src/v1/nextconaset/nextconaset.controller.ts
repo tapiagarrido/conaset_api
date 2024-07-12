@@ -34,6 +34,7 @@ export class NextconasetController {
   @ApiOperation({ summary: "Consulta el estado de la postulación" })
   consulta_estado(@Body() consultaEstadoDto: ConsultaEstadoDto, @Response() res) {
 
+    console.log(consultaEstadoDto)
     this.nextconasetService.consulta_estado(consultaEstadoDto)
       .subscribe({
         next: (response) => {

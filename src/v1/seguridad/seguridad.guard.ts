@@ -10,7 +10,7 @@ export class SeguridadGuard implements CanActivate {
 
     const request = context.switchToHttp().getRequest();
     const headers = request.headers;
-    const apiKey = headers['api_key_crecic'];
+    const apiKey = headers.api_crecic_key;
 
     if (!apiKey || apiKey !== envs.API_KEY_CRECIC) {
       throw new ForbiddenException('No se permite el acceso a servicios ajenos a empresa CRECIC S.A');
