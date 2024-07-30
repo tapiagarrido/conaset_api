@@ -7,7 +7,7 @@ export class ConsultaEstadoDto {
     @ApiProperty({ description: "Run del aplicante con codigo verificador", example: "14789546-8" })
     @IsNotEmpty()
     @IsString()
-    run_aplicante: string;
+    run_aplicant: string;
 
     @ApiProperty({ description: "Tipo de licencia solicitada", example: "B" })
     @IsNotEmpty()
