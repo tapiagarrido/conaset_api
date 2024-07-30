@@ -44,7 +44,7 @@ export class NextconasetService {
 
     const url = `${envs.BASE_URL_CONASET}/exam/external/renditions/result`;
 
-    this.logger.log(`Consultando estado de postulacion para ${consultaEstadoDto.run_aplicant}`);
+    this.logger.log(`Consultando estado de postulacion para ${consultaEstadoDto.run_applicant}`);
 
     return this.httpService.post<ResponseConsultaEstadoOk[]>(url, consultaEstadoDto, this.configuracion)
       .pipe(
