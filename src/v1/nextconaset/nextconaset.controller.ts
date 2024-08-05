@@ -9,7 +9,7 @@ import { SeguridadGuard } from '../seguridad/seguridad.guard';
 
 @ApiTags('NextConaset')
 @UseGuards(SeguridadGuard)
-@Controller('v1/nextconaset')
+@Controller('v1')
 export class NextconasetController {
   constructor(private readonly nextconasetService: NextconasetService) { }
 

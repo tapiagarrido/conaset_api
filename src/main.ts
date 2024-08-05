@@ -6,7 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix('conaset');
   
   const configDoc = new DocumentBuilder()
   .setTitle('Next-Conaset API')
@@ -16,7 +16,7 @@ async function bootstrap() {
   .build();
   
   const document = SwaggerModule.createDocument(app, configDoc);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('conaset/v1/docs', app, document);
   
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(envs.PORT);
