@@ -26,13 +26,13 @@ export class DataEstadoFormatResponseInterceptor implements NestInterceptor {
 
   private transformClassLicense(classLicense: string): string {
     switch (classLicense.toLowerCase()) {
-      case 'a1p':
+      case 'A1P (Ley 18.290)':
         return 'A1N';
-      case 'a2p':
+      case 'A2P (Ley 18.290)':
         return 'A2N';
-      case 'c - restringida':
+      case 'C - Restringida':
         return 'CR';
-      case 'b-inglés':
+      case 'B-Inglés':
         return 'B';
       default:
         return classLicense;
