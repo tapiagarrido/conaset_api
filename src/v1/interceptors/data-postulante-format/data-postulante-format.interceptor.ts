@@ -8,10 +8,14 @@ export class DataPostulanteFormatInterceptor implements NestInterceptor {
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
+
+    // Log de la data del cuerpo
+
+    console.log(request.body);
     
     // Transformar la clase de licencia
     request.body.driver_licence_class = this.transformClassLicense(request.body.driver_licence_class);
-    
+
     // Decodificar los nombres
     request.body.applicant_names = this.decodeSpecialCharacters(request.body.applicant_names);
     request.body.applicant_last_name = this.decodeSpecialCharacters(request.body.applicant_last_name);
@@ -41,7 +45,6 @@ export class DataPostulanteFormatInterceptor implements NestInterceptor {
   }
 
   private decodeSpecialCharacters(text: string): string {
-    // Mapeo de números a caracteres especiales
     const mapeo = {
       '[1]': 'ñ',
       '[2]': 'á',
