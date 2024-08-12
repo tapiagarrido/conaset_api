@@ -5,11 +5,16 @@ import { Observable } from 'rxjs';
 export class DataEstadoFormatPetitionInterceptor implements NestInterceptor {
 
   private readonly logger = new Logger(DataEstadoFormatPetitionInterceptor.name);
-  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
 
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
+    
     this.logger.warn('Revisando y Modificando clase de licencia en petición');
-    request.body.class = this.transformClassLicense(request.body.class);
+    
+    if (request.body.class !== null && request.body.class !== undefined) {
+      request.body.class = this.transformClassLicense(request.body.class);
+    }
+
     return next.handle();
   }
 
