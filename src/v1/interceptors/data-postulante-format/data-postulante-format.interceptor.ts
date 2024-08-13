@@ -34,7 +34,7 @@ export class DataPostulanteFormatInterceptor implements NestInterceptor {
       case 'cr':
         return 'C - Restringida';
       case 'bi':
-        return 'B-Inglés';
+        return 'B - Inglés';
       default:
         return classLicense;
     }

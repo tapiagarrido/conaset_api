@@ -32,7 +32,7 @@ export class DataEstadoFormatResponseInterceptor implements NestInterceptor {
         return 'A2N';
       case 'C - Restringida':
         return 'CR';
-      case 'B-Inglés':
+      case 'B - Inglés':
         return 'B';
       default:
         return classLicense;
