@@ -24,6 +24,9 @@ export class NextconasetController {
   @ApiResponse({ status: 201, description: "'{message: Postulación a examen creada con éxito}'" })
   create_postulante(@Body() createPostulanteDto: CreatePostulanteDto, @Response() res) {
 
+    console.log("Cuerpo de la peticion");
+    console.log(createPostulanteDto);
+    console.log("Cierre del cuerpo de la peticion");
     this.nextconasetService.crear_postulante(createPostulanteDto)
       .subscribe({
         next: (response) => {
@@ -46,6 +49,10 @@ export class NextconasetController {
   @ApiResponse({ status: 200, description: "Consulta realizada con éxito" })
   async consulta_estado(@Body() consultaEstadoDto: ConsultaEstadoDto, @Response() res): Promise<void> {
     try {
+      console.log("Buscando algo");
+      console.log(consultaEstadoDto);
+      console.log("Buscando algo");
+
       const response = await firstValueFrom(this.nextconasetService.consulta_estado(consultaEstadoDto));
       this.logger.verbose(`Respuesta NextConaset => ${response.status} - ${JSON.stringify(response.data)}`);
       res.status(200).json(response.data);
