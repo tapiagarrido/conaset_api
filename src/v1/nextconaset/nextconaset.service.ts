@@ -55,42 +55,4 @@ export class NextconasetService {
 
   }
 
-  anulacion_examen(anulacionExamenDto: AnulacionExamenDto): Observable<AxiosResponse<ResponseAnulacionExamenOk>> {
-
-    const url = `${envs.BASE_URL_CONASET}/exam/external/renditions/end`;
-
-    this.logger.log(`Anulando examen para ${anulacionExamenDto.run_applicant}`);
-
-    return this.httpService.post<ResponseAnulacionExamenOk>(url, anulacionExamenDto, this.configuracion)
-      .pipe(
-        catchError((error: AxiosError) => {
-          throw error;
-        })
-      );
-
-  }
-
-  finalizacion_examen(finalizacionExamenDto: FinalizacionExamenDto): Observable<AxiosResponse<ResponseFinalizacionExamenOk>> {
-
-    const url = `${envs.BASE_URL_CONASET}/exam/external/renditions/end`;
-
-    this.logger.log(`Finalizando examen para ${finalizacionExamenDto.run_applicant}`);
-
-    return this.httpService.post<ResponseFinalizacionExamenOk>(url, finalizacionExamenDto, this.configuracion)
-      .pipe(
-        catchError((error: AxiosError) => {
-          throw error;
-        })
-      );
-
-  }
-
-  prueba_get(){
-
-    this.logger.log("Llamando a la api");
-    
-    return {msg:"Esta llamada ha salido exitosamente"}
-
-  }
-
 }
