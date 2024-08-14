@@ -11,7 +11,7 @@ export class DataEstadoFormatResponseInterceptor implements NestInterceptor {
     this.logger.warn('Modificando las clases de licencias en respuesta');
     return next.handle().pipe(
       tap(response => {
-        if (Array.isArray(response)) {
+        if (Array.isArray(response)) {      
           response.forEach(element => {
             if (element && element.license_name) {
               element.license_name = this.transformClassLicense(element.license_name);
@@ -26,13 +26,13 @@ export class DataEstadoFormatResponseInterceptor implements NestInterceptor {
 
   private transformClassLicense(classLicense: string): string {
     switch (classLicense.toLowerCase()) {
-      case 'A1P (Ley 18.290)':
+      case 'a1p (ley 18.290)':
         return 'A1N';
-      case 'A2P (Ley 18.290)':
+      case 'a2p (ley 18.290)':
         return 'A2N';
-      case 'C - Restringida':
+      case 'c - restringida':
         return 'CR';
-      case 'B - Inglés':
+      case 'b - inglés':
         return 'B';
       default:
         return classLicense;

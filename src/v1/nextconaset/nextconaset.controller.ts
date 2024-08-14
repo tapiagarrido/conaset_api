@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Request, Response, UseGuards, Get, UseInterceptors, Logger } from '@nestjs/common';
+import { Controller, Post, Body, Request, Response, UseGuards, Get, UseInterceptors, Logger, HttpException } from '@nestjs/common';
 import { NextconasetService } from './nextconaset.service';
 import { AnulacionExamenDto, ConsultaEstadoDto, CreatePostulanteDto, FinalizacionExamenDto } from './dto';
 import { AxiosError } from 'axios';
@@ -47,27 +47,24 @@ export class NextconasetController {
   @Post('consulta-estado')
   @ApiOperation({ summary: "Consulta el estado de la postulación" })
   @ApiResponse({ status: 200, description: "Consulta realizada con éxito" })
-  async consulta_estado(@Body() consultaEstadoDto: ConsultaEstadoDto, @Response() res): Promise<void> {
+  async consulta_estado(@Body() consultaEstadoDto: ConsultaEstadoDto): Promise<any> {
     try {
-      console.log("Buscando algo");
-      console.log(consultaEstadoDto);
-      console.log("Buscando algo");
-
       const response = await firstValueFrom(this.nextconasetService.consulta_estado(consultaEstadoDto));
-      this.logger.verbose(`Respuesta NextConaset => ${response.status} - ${JSON.stringify(response.data)}`);
-      res.status(200).json(response.data);
+      this.logger.verbose(`Respuesta NextConaset previa conversion licencias => ${response.status} - ${JSON.stringify(response.data)}`);
+      return response.data;
     } catch (error) {
       if (error.isAxiosError) {
         const axiosError = error as AxiosError;
         const status = axiosError.response?.status || 500;
-        this.logger.error(`Respuesta NextConaset => ${error.response.status} - ${JSON.stringify(error.response.data)}`);
-        res.status(status).json(axiosError.response?.data || { message: 'Internal Server Error' });
+        this.logger.error(`Respuesta NextConaset => ${axiosError.response.status} - ${JSON.stringify(axiosError.response.data)}`);
+        throw new HttpException(axiosError.response?.data || { message: 'Internal Server Error' }, status);
       } else {
-        this.logger.error(`Respuesta NextConaset => ${error.response.status} - ${JSON.stringify(error.response.data)}`);
-        res.status(500).json({ message: 'Internal Server Error' });
+        this.logger.error(`Respuesta NextConaset => ${error.response?.status} - ${JSON.stringify(error.response?.data)}`);
+        throw new HttpException({ message: 'Internal Server Error' }, 500);
       }
     }
   }
+  
 
   @Post('anular-examen')
   @ApiOperation({ summary: "Se solicita la anulación del examen asociando una causa valida" })
