@@ -68,45 +68,4 @@ export class NextconasetController {
     }
   }
   
-
-  @Post('anular-examen')
-  @ApiOperation({ summary: "Se solicita la anulación del examen asociando una causa valida" })
-  anular_examen(@Body() anulacionExamenDto: AnulacionExamenDto, @Response() res) {
-
-    this.nextconasetService.anulacion_examen(anulacionExamenDto)
-      .subscribe({
-        next: (response) => {
-          return res.status(201).json(response.data);
-        },
-        error: (error: AxiosError<ResponseAnulacionExamenError>) => {
-          const status = error.response.status;
-          return res.status(status).json(error.response.data);
-        }
-      });
-
-  }
-
-  @Post('finalizar-examen')
-  @ApiOperation({ summary: "Se solicita el cierre del examen posterior a rendir el mismo" })
-  finalizar_examen(@Body() finalizacionExamenDto: FinalizacionExamenDto, @Response() res) {
-
-    this.nextconasetService.finalizacion_examen(finalizacionExamenDto)
-      .subscribe({
-        next: (response) => {
-          return res.status(201).json(response.data);
-        },
-        error: (error: AxiosError<ResponseFinalizacionExamenError>) => {
-          const status = error.response.status;
-          return res.status(status).json(error.response.data);
-        }
-      })
-
-  }
-
-  @Get('prueba-get')
-  pueba(@Response() res) {
-    const data = this.nextconasetService.prueba_get();
-    return res.status(200).json(data);
-  }
-
 }
