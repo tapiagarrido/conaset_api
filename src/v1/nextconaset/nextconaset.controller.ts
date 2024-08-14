@@ -24,9 +24,12 @@ export class NextconasetController {
   @ApiResponse({ status: 201, description: "'{message: Postulación a examen creada con éxito}'" })
   create_postulante(@Body() createPostulanteDto: CreatePostulanteDto, @Response() res) {
 
-    console.log("Cuerpo de la peticion");
-    console.log(createPostulanteDto);
-    console.log("Cierre del cuerpo de la peticion");
+
+    return res.json({
+      msg: "has hecho algo y esta es la data",
+      createPostulanteDto
+    })
+
     this.nextconasetService.crear_postulante(createPostulanteDto)
       .subscribe({
         next: (response) => {
