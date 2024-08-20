@@ -8,29 +8,33 @@ export class DataPostulanteFormatInterceptor implements NestInterceptor {
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
-    
+
     // Transformar la clase de licencia
     request.body.driver_licence_class = this.transformClassLicense(request.body.driver_licence_class);
-    
+
     // Decodificar los nombres
     request.body.applicant_names = this.decodeSpecialCharacters(request.body.applicant_names);
     request.body.applicant_last_name = this.decodeSpecialCharacters(request.body.applicant_last_name);
     request.body.applicant_second_last_name = this.decodeSpecialCharacters(request.body.applicant_second_last_name);
-    
+
     this.logger.warn('Clase Modificada:', request.body.driver_licence_class);
     this.logger.warn('Nombre Decodificado:', request.body.applicant_names);
     this.logger.warn('Apellido Paterno Decodificado:', request.body.applicant_last_name);
     this.logger.warn('Apellido Materno Decodificado:', request.body.applicant_second_last_name);
-    
+
     return next.handle();
   }
 
   private transformClassLicense(classLicense: string): string {
     switch (classLicense.toLowerCase()) {
-      case 'a1n':
+      case 'a1':
         return 'A1P (Ley 18.290)';
-      case 'a2n':
+      case 'a2':
         return 'A2P (Ley 18.290)';
+      case 'a1n':
+        return 'A1P';
+      case 'a2n':
+        return 'A2P';
       case 'cr':
         return 'C - Restringida';
       case 'bi':
