@@ -26,9 +26,9 @@ export class DataEstadoFormatPetitionInterceptor implements NestInterceptor {
       case 'a2':
         return 'A2P (Ley 18.290)';
       case 'a1n':
-        return 'A1P';
+        return 'A1';
       case 'a2n':
-        return 'A2P';
+        return 'A2';
       case 'cr':
         return 'C - Restringida';
       case 'bi':

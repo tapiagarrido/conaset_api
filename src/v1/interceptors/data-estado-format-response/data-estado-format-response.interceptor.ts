@@ -30,9 +30,9 @@ export class DataEstadoFormatResponseInterceptor implements NestInterceptor {
         return 'A1';
       case 'a2p (ley 18.290)':
         return 'A2';
-      case 'a1p':
+      case 'a1':
         return 'A1N';
-      case 'a2p':
+      case 'a2':
         return 'A2N';
       case 'c - restringida':
         return 'CR';
