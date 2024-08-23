@@ -47,9 +47,26 @@ export class NextconasetController {
   async consulta_estado(@Body() consultaEstadoDto: ConsultaEstadoDto): Promise<any> {
     try {
       const response = await firstValueFrom(this.nextconasetService.consulta_estado(consultaEstadoDto));
-      this.logger.verbose(`Respuesta NextConaset previa conversion licencias => ${response.status} - ${JSON.stringify(response.data)}`);
-      return response.data;
+  
+      const data = response.data;
+      const { class: license_class } = consultaEstadoDto;
+  
+      const aplicanteBuscado = data.filter((item: any) => item.license_name === license_class);
+
+      if (aplicanteBuscado.length === 0) {
+        return { "message": "Resultado de examen no encontrado"};
+      }
+  
+      const highOportunityNumber = aplicanteBuscado.reduce((prev: any, current: any) => {
+        return (prev.opportunity_number > current.opportunity_number) ? prev : current;
+      });
+  
+      this.logger.verbose(`Respuesta NextConaset previa conversion licencias => ${response.status} - ${JSON.stringify(highOportunityNumber)}`);
+
+      return [highOportunityNumber];
+  
     } catch (error) {
+
       if (error.isAxiosError) {
         const axiosError = error as AxiosError;
         const status = axiosError.response?.status || 500;
@@ -59,6 +76,7 @@ export class NextconasetController {
         this.logger.error(`Respuesta NextConaset => ${error.response?.status} - ${JSON.stringify(error.response?.data)}`);
         throw new HttpException({ message: 'Internal Server Error' }, 500);
       }
+      
     }
   }
   

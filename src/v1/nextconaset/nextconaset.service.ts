@@ -29,7 +29,7 @@ export class NextconasetService {
 
     const url = `${envs.BASE_URL_CONASET}/applicant/external/create`;
 
-    this.logger.log(`Creando postulacion para ${createPostulanteDto.applicant_run}`);
+    this.logger.log(`${createPostulanteDto.name_municipality} ===> Creando postulacion para ${createPostulanteDto.applicant_run}`);
 
     return this.httpService.post<ResponseCreatePostulante>(url, createPostulanteDto, this.configuracion)
       .pipe(
@@ -44,7 +44,7 @@ export class NextconasetService {
 
     const url = `${envs.BASE_URL_CONASET}/exam/external/renditions/result`;
 
-    this.logger.log(`Consultando estado de postulacion para ${consultaEstadoDto.run_applicant}`);
+    this.logger.log(`${consultaEstadoDto.municipio}  ===> Consultando estado de postulacion para ${consultaEstadoDto.run_applicant}`);
 
     return this.httpService.post<ResponseConsultaEstadoOk[]>(url, consultaEstadoDto, this.configuracion)
       .pipe(

@@ -6,9 +6,10 @@ export class DataEstadoFormatResponseInterceptor implements NestInterceptor {
 
   private readonly logger = new Logger(DataEstadoFormatResponseInterceptor.name);
 
+
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
 
-    this.logger.warn('Modificando las clases de licencias en respuesta');
+    this.logger.warn('Modificando las clases de licencias y fechas en respuesta');
     return next.handle().pipe(
       tap(response => {
         if (Array.isArray(response)) {
@@ -16,13 +17,22 @@ export class DataEstadoFormatResponseInterceptor implements NestInterceptor {
             if (element && element.license_name) {
               element.license_name = this.transformClassLicense(element.license_name);
             }
+            if (element && element.date) {
+              element.date = this.transformDate(element.date);
+            }
           });
-        } else if (response && response.license_name) {
-          response.license_name = this.transformClassLicense(response.license_name);
+        } else {
+          if (response && response.license_name) {
+            response.license_name = this.transformClassLicense(response.license_name);
+          }
+          if (response && response.date) {
+            response.date = this.transformDate(response.date);
+          }
         }
       })
     );
   }
+
 
   private transformClassLicense(classLicense: string): string {
     switch (classLicense.toLowerCase()) {
@@ -42,4 +52,13 @@ export class DataEstadoFormatResponseInterceptor implements NestInterceptor {
         return classLicense;
     }
   }
+
+  private transformDate(dateStr: string): string {
+    const [datePart, timePart] = dateStr.split(', ');
+    const [month, day, year] = datePart.split('/');
+    const isoDate = `${year}-${month}-${day}T${timePart}.000Z`;
+    return isoDate;
+  }
+  
 }
+

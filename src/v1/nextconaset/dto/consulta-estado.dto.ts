@@ -19,4 +19,9 @@ export class ConsultaEstadoDto {
     @IsString()
     date: string;
 
+    @ApiProperty({description:"Municipio de origen para mantener log dirigido", example:"TOMÉ"})
+    @IsNotEmpty()
+    @IsString()
+    municipio: string;
+
 }
